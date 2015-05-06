@@ -1,0 +1,63 @@
+body {
+	font-family: 'Lato', sans-serif;
+
+	background-image: url("images/background.jpg");
+	background-size: 40%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+h1 {
+	font-size: 400%;	
+	color: lightblue;
+
+	text-indent: 450px;
+}
+
+section {
+	width: 530px;
+	position: relative;
+	left: 570px;
+
+	border: 1px solid lightgrey;
+	border-radius: 20px;
+
+	padding: 20px;
+
+	overflow: hidden;
+}
+
+textarea {
+	width: 520px;
+	height: 200px;
+	margin-bottom: 10px;
+	display: block;
+
+	border: 1px solid lightblue;
+	border-radius: 5px;
+
+	font-size: 18px;
+}
+
+#submit {
+	font-size: 22px;
+
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+}
+
+.disclaimer {
+	clear: both;
+}
+
+#danger {
+	color: red;
+}
+
+#danger_half {
+	color: orange;
+}
+
+#safe {
+	color: green;
+}
