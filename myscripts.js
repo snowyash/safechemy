@@ -130,7 +130,8 @@ $(document).ready(function() {
 				    /* treat json to array */
 				    var regExp = /["][i][n][g][r][e][d][i][e][n][t][s]["][:]["](.*?)["][,]["][i][d]["][:]/;
 					var matches = regExp.exec(json['text']);
-				    checkArray(matches[1]);
+				    if(matches[1].length > 0) checkArray(matches[1]);
+				    else checkURL("doesn't have ingredient information");
 
 				})
 				.fail(function( jqxhr, textStatus, error ) {
@@ -168,6 +169,8 @@ $(document).ready(function() {
 	}
 
 	function checkArray(str){
+
+		/* this function aligned the two arrays together and find duplicate items alphabetically */
 		dangerousChemy.both = str.toLowerCase().replace(/[ ()]|[a][n][d]/g, '').replace(/[:;.-]/g, ',').split(',').concat(dangerousChemy.arr);
 		dangerousChemy.both.sort();
 
@@ -214,14 +217,17 @@ $(document).ready(function() {
 	function evaluate(n, element, name, warning){
 		if (n == 1) {
 			element.append(warning + ' We found ' + n + ' ' + name + ' chemical.');
+			element.focus();
 		} else if (n > 1) {
 			element.append(warning + ' We found ' + n + ' ' + name + ' chemicals.');
+			element.focus();
 		}
 	}
 
 	function noResults(){
 		if (dangerousChemy.match < 1 && dangerousChemy.halfmatch < 1) {
 			$('#safe').append("Wow! We didn\'t found anything unusual.");
+			$('#safe').focus();
 		}
 	}
 });

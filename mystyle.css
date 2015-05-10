@@ -1,3 +1,7 @@
+* {
+	font-size: 18px;
+}
+
 body {
 	font-family: 'Lato', sans-serif;
 
@@ -22,6 +26,8 @@ section {
 	left: 570px;
 	top: 150px;
 
+	background-color: white;
+
 	border: 1px solid lightgrey;
 	border-radius: 20px;
 
@@ -40,10 +46,6 @@ textarea {
 
 	border: 1px solid lightblue;
 	border-radius: 5px;
-}
-
-textarea, input {
-	font-size: 18px;
 }
 
 form div {
@@ -65,14 +67,6 @@ form div {
 
 .normal {
 	font-weight: normal;
-}
-
-.hidden {
-	display: none;
-}
-
-.show {
-	display: block;
 }
 
 .submit {
