@@ -31,7 +31,10 @@
             
             <form>
                 <h3>Please paste or type the ingredient names below, seperating them with a comma:</h3>
-                <textarea id="chemy_names" name="chemy_names" required="required" placeholder="ie. Water, Glycerin, Butyrospermum Parkii (Shea) Butter..."></textarea> 
+                <textarea id="chemy_names" name="chemy_names" required="required" placeholder="ie. Water, Glycerin, Butyrospermum Parkii (Shea) Butter..."></textarea>                 
+                <div>
+                    <p class="normal">You are allowed 1000 characters, you have <span class="green" id="warning">1000</span> characters left.</p>
+                </div>
                 <input id="submit" name="submit" type="submit" value="submit" />
             </form>
             

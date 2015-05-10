@@ -2,22 +2,25 @@ body {
 	font-family: 'Lato', sans-serif;
 
 	background-image: url("images/background.jpg");
-	background-size: 40%;
+	background-size: 600px;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 }
 
 h1 {
-	font-size: 400%;	
-	color: lightblue;
+	position: fixed;
+	left: 450px;
 
-	text-indent: 450px;
+	font-size: 65px;	
+	color: lightblue;
+	white-space:nowrap;
 }
 
 section {
 	width: 530px;
 	position: relative;
 	left: 570px;
+	top: 150px;
 
 	border: 1px solid lightgrey;
 	border-radius: 20px;
@@ -29,7 +32,9 @@ section {
 
 textarea {
 	width: 520px;
+	max-width: 520px;
 	height: 200px;
+	min-height: 100px;
 	margin-bottom: 10px;
 	display: block;
 
@@ -37,6 +42,22 @@ textarea {
 	border-radius: 5px;
 
 	font-size: 18px;
+}
+
+.green {
+	color: green;
+}
+
+.red {
+	color: red;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.normal {
+	font-weight: normal;
 }
 
 #submit {
