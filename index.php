@@ -29,13 +29,24 @@
         
         <section>
             
-            <form>
+            <form class="show" id="textarea_form">
                 <h3>Please paste or type the ingredient names below, seperating them with a comma:</h3>
                 <textarea id="chemy_names" name="chemy_names" required="required" placeholder="ie. Water, Glycerin, Butyrospermum Parkii (Shea) Butter..."></textarea>                 
                 <div>
-                    <p class="normal">You are allowed 1000 characters, you have <span class="green" id="warning">1000</span> characters left.</p>
+                    <p class="normal">You are allowed 1000 characters, you have <span class="green" id="textarea_warning">1000</span> characters left.</p>
                 </div>
-                <input id="submit" name="submit" type="submit" value="submit" />
+                <input class="submit" name="submit" type="submit" value="submit" />
+            </form>
+
+            <h2>OR...</h2>
+
+             <form class="show" id="url_form">
+                <h3>Please paste or type your sephora product url below:</h3>
+                <input id="url" name="url" type="url" required="required" placeholder="ie. http://www.sephora.com/acne-clearing-solution-P385325" />
+                <div>
+                    <p class="normal">Your URL <span id="url_warning">is pending validation</span>.</p>
+                </div>
+                <input class="submit" name="submit" type="submit" value="submit" />
             </form>
             
             <div>

@@ -40,8 +40,15 @@ textarea {
 
 	border: 1px solid lightblue;
 	border-radius: 5px;
+}
 
+textarea, input {
 	font-size: 18px;
+}
+
+form div {
+	clear: both;
+	min-height: 10px;
 }
 
 .green {
@@ -60,7 +67,15 @@ textarea {
 	font-weight: normal;
 }
 
-#submit {
+.hidden {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+.submit {
 	font-size: 22px;
 
 	border: 1px solid lightgrey;
@@ -69,6 +84,11 @@ textarea {
 
 .disclaimer {
 	clear: both;
+}
+
+#url {
+	width: 95%;
+	height: 30px;
 }
 
 #danger {

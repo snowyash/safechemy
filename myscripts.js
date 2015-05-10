@@ -91,18 +91,87 @@ $(document).ready(function() {
 		checkLength();
 	});
 
-	$('form').submit(function(){
+	$('form#textarea_form').submit(function(){
 		/* reset everything just in case */
 		dangerousChemy.reset();
 		removeOldResults();
 
 		/* then split textarea input into array */
 		if ($('textarea')[0].value.length > 0 && $('textarea')[0].value.length <= 1000) {
-			dangerousChemy.both = $('textarea')[0].value.toLowerCase().replace(/[ ()]|[a][n][d]/g, '').replace(/[:;.-]/g, ',').split(',').concat(dangerousChemy.arr);
-			dangerousChemy.both.sort();
-
+			
 			/* check textarea array against dangerousChemy.arr for matches */
-			for(var i = 0; i < dangerousChemy.both.length-1; i++){
+			checkArray($('textarea')[0].value);
+
+		} else {
+			checkLength();
+			$('p:has(span)').removeClass("normal");
+			$('p:has(span)').addClass("bold");
+		}
+
+		return false;
+	});
+
+	$('form#url_form').submit(function(){
+		/* reset everything just in case */
+		dangerousChemy.reset();
+		removeOldResults();
+
+		/* validation on url input */
+		if ($('input#url')[0].value.indexOf("sephora.com") > 0 && $('input#url')[0].value.indexOf("skuId") > 0) {
+			$('#url_warning').removeClass("red");
+
+			$('#url_warning')[0].innerHTML = "is a valid sephora address.";
+			$('#url_warning').addClass("green");
+
+			/* call ajax and get info from URL */
+			$.getJSON( "php/ingredientsGenerator.php", { url: $('input#url')[0].value } )
+				.done(function(json) {
+
+				    /* treat json to array */
+				    var regExp = /["][i][n][g][r][e][d][i][e][n][t][s]["][:]["](.*?)["][,]["][i][d]["][:]/;
+					var matches = regExp.exec(json['text']);
+				    checkArray(matches[1]);
+
+				})
+				.fail(function( jqxhr, textStatus, error ) {
+				    var err = textStatus + ", " + error;
+				    checkURL("is invalid. " + err );
+			});		
+			
+		} else {
+			checkURL("is invalid");
+		}
+
+		return false;
+	});
+
+	function checkLength(){
+		$('#textarea_warning')[0].innerHTML = 1000 - $('textarea')[0].value.length;
+
+		$('p:has(span)').addClass("normal");
+		$('p:has(span)').removeClass("bold");
+
+		if ($('textarea')[0].value.length > 1000) {
+			$('#textarea_warning').removeClass("green");
+			$('#textarea_warning').addClass("red");
+		} else {
+			$('#textarea_warning').addClass("green");
+			$('#textarea_warning').removeClass("red");
+		}
+	}
+
+	function checkURL(str){
+		$('#url_warning').removeClass("green");
+
+		$('#url_warning')[0].innerHTML = str;
+		$('#url_warning').addClass("red");
+	}
+
+	function checkArray(str){
+		dangerousChemy.both = str.toLowerCase().replace(/[ ()]|[a][n][d]/g, '').replace(/[:;.-]/g, ',').split(',').concat(dangerousChemy.arr);
+		dangerousChemy.both.sort();
+
+		for(var i = 0; i < dangerousChemy.both.length-1; i++){
 				if (dangerousChemy.both[i].length > 1){
 					if (dangerousChemy.both[i] == dangerousChemy.both[i+1] && dangerousChemy.both[i+1] == dangerousChemy.both[i+2]){
 
@@ -135,21 +204,12 @@ $(document).ready(function() {
 				
 			}
 
-			console.log(dangerousChemy.both);
-
 			/* display each match on the web page & update danger title */
 
 			evaluate(dangerousChemy.match, $('#danger'), 'dangerous', 'Warning!');
 			evaluate(dangerousChemy.halfmatch, $('#danger_half'), 'potentially dangerous', 'Careful!');
 			noResults();
-		} else {
-			checkLength();
-			$('p:has(span)').removeClass("normal");
-			$('p:has(span)').addClass("bold");
-		}
-
-		return false;
-	});
+	}
 
 	function evaluate(n, element, name, warning){
 		if (n == 1) {
@@ -162,21 +222,6 @@ $(document).ready(function() {
 	function noResults(){
 		if (dangerousChemy.match < 1 && dangerousChemy.halfmatch < 1) {
 			$('#safe').append("Wow! We didn\'t found anything unusual.");
-		}
-	}
-
-	function checkLength(){
-		$('#warning')[0].innerHTML = 1000 - $('textarea')[0].value.length;
-
-		$('p:has(span)').addClass("normal");
-		$('p:has(span)').removeClass("bold");
-
-		if ($('textarea')[0].value.length > 1000) {
-			$('#warning').removeClass("green");
-			$('#warning').addClass("red");
-		} else {
-			$('#warning').addClass("green");
-			$('#warning').removeClass("red");
 		}
 	}
 });
