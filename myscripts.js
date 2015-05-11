@@ -117,7 +117,7 @@ $(document).ready(function() {
 		removeOldResults();
 
 		/* validation on url input */
-		if ($('input#url')[0].value.indexOf("sephora.com") > 0 && $('input#url')[0].value.indexOf("skuId") > 0) {
+		if ($('input#url')[0].value.indexOf("sephora.com") > 0) {
 			$('#url_warning').removeClass("red");
 
 			$('#url_warning')[0].innerHTML = "is a valid sephora address.";
