@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  	defineWinSize();
+
 	var dangerousChemy = new Object();
 	dangerousChemy.match = 0;
 	dangerousChemy.halfmatch = 0;
@@ -104,8 +106,7 @@ $(document).ready(function() {
 
 		} else {
 			checkLength();
-			$('p:has(span)').removeClass("normal");
-			$('p:has(span)').addClass("bold");
+			$('p:has(span)').removeClass("normal").addClass("bold");
 		}
 
 		return false;
@@ -118,10 +119,9 @@ $(document).ready(function() {
 
 		/* validation on url input */
 		if ($('input#url')[0].value.indexOf("sephora.com") > 0) {
-			$('#url_warning').removeClass("red");
-
+			
+			$('#url_warning').removeClass("red").addClass("green");
 			$('#url_warning')[0].innerHTML = "is a valid sephora address.";
-			$('#url_warning').addClass("green");
 
 			/* call ajax and get info from URL */
 			$.getJSON( "php/ingredientsGenerator.php", { url: $('input#url')[0].value } )
@@ -149,23 +149,18 @@ $(document).ready(function() {
 	function checkLength(){
 		$('#textarea_warning')[0].innerHTML = 1000 - $('textarea')[0].value.length;
 
-		$('p:has(span)').addClass("normal");
-		$('p:has(span)').removeClass("bold");
+		$('p:has(span)').addClass("normal").removeClass("bold");
 
 		if ($('textarea')[0].value.length > 1000) {
-			$('#textarea_warning').removeClass("green");
-			$('#textarea_warning').addClass("red");
+			$('#textarea_warning').removeClass("green").addClass("red");
 		} else {
-			$('#textarea_warning').addClass("green");
-			$('#textarea_warning').removeClass("red");
+			$('#textarea_warning').addClass("green").removeClass("red");
 		}
 	}
 
 	function checkURL(str){
-		$('#url_warning').removeClass("green");
-
+		$('#url_warning').removeClass("green").addClass("red");
 		$('#url_warning')[0].innerHTML = str;
-		$('#url_warning').addClass("red");
 	}
 
 	function checkArray(str){
@@ -229,5 +224,22 @@ $(document).ready(function() {
 			$('#safe').append("Wow! We didn\'t found anything unusual.");
 			$('#safe').focus();
 		}
+	}
+
+	$(window).resize(function() {
+	  	defineWinSize();
+	});
+
+	function defineWinSize(){
+		console.log($(window).width());
+		var size = $(window).width() / 4 + "%";
+		$('h1').css('font-size', size);
+
+		if ($(window).width() > 2000) {
+		} else if ($(window).width() <= 1000){
+	  		$('section').removeClass("window").addClass("mobile");
+	  	} else {
+	  		$('section').removeClass("mobile").addClass("window");
+	  	}
 	}
 });

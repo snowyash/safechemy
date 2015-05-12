@@ -29,7 +29,7 @@
         
         <h1>Baby-safe Chemy Check</h1>
         
-        <section>
+        <section class="window">
             
             <div>
                 <h4 id="safe"></h4>
