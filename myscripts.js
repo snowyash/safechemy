@@ -117,14 +117,17 @@ $(document).ready(function() {
 		dangerousChemy.reset();
 		removeOldResults();
 
+		var inputURL = treatURL($('input#url')[0].value);
+		console.log(inputURL);
+
 		/* validation on url input */
-		if ($('input#url')[0].value.indexOf("sephora.com") > 0) {
+		if (inputURL) {
 			
 			$('#url_warning').removeClass("red").addClass("green");
 			$('#url_warning')[0].innerHTML = "is a valid sephora address.";
 
 			/* call ajax and get info from URL */
-			$.getJSON( "php/ingredientsGenerator.php", { url: $('input#url')[0].value } )
+			$.getJSON( "php/ingredientsGenerator.php", { url: inputURL } )
 				.done(function(json) {
 
 				    /* treat json to array */
@@ -136,7 +139,7 @@ $(document).ready(function() {
 				})
 				.fail(function( jqxhr, textStatus, error ) {
 				    var err = textStatus + ", " + error;
-				    checkURL("is invalid. " + err );
+				    checkURL("is invalid. Error Message: " + err );
 			});		
 			
 		} else {
@@ -156,6 +159,25 @@ $(document).ready(function() {
 		} else {
 			$('#textarea_warning').addClass("green").removeClass("red");
 		}
+	}
+
+	function treatURL(url){
+		if(url.indexOf("sephora.com") > 0) {
+			if (url.substring(0, 9) == 'https://m'){
+				url = 'http://www' + url.substring(9, url.length);
+			} else if (url.substring(0, 5) == 'https') {
+				return null;
+			} else if (url.substring(0, 10) == 'http://www') {
+				return url;
+			} else {
+				return null;
+			}
+
+		} else {
+			return null;
+		}
+
+		return url;
 	}
 
 	function checkURL(str){
@@ -231,15 +253,16 @@ $(document).ready(function() {
 	});
 
 	function defineWinSize(){
-		console.log($(window).width());
-		var size = $(window).width() / 4 + "%";
-		$('h1').css('font-size', size);
+		var size;
 
-		if ($(window).width() > 2000) {
-		} else if ($(window).width() <= 1000){
+		if ($(window).width() <= 1000){
 	  		$('section').removeClass("window").addClass("mobile");
+			size = $(window).width() / 3 + "%";
+			$('h1').css('font-size', size);
 	  	} else {
 	  		$('section').removeClass("mobile").addClass("window");
+			size = $(window).width() / 4 + "%";
+			$('h1').css('font-size', size);
 	  	}
 	}
 });
