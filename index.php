@@ -25,7 +25,7 @@
 
 <body>
 
-    <container>
+    <div class="container">
         
         <h1>Baby-safe Chemy Check</h1>
         
@@ -71,7 +71,7 @@
         
         </section>
     
-    </container>
+    </div>
   
     <script src="myscripts.js"></script>
     

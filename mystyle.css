@@ -5,26 +5,25 @@
 body {
 	font-family: 'Lato', sans-serif;
 
-	background-image: url("images/background.jpg");
-	background-size: 600px;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
+	background: url("images/background.jpeg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 h1 {
-	position: fixed;
-	left: 450px;
+	width: 100%;
+	text-align: right;
 
-	font-size: 65px;	
+	font-size: 4em;	
 	color: lightblue;
-	white-space:nowrap;
 }
 
 section {
-	width: 530px;
 	position: relative;
-	left: 570px;
-	top: 150px;
+	left: 50%;
+	width: 45%;
 
 	background-color: white;
 
@@ -37,10 +36,9 @@ section {
 }
 
 textarea {
-	width: 520px;
-	max-width: 520px;
-	height: 200px;
-	min-height: 100px;
+	width: 100%;
+	max-width: 100%;
+	min-height: 200px;
 	margin-bottom: 10px;
 	display: block;
 
@@ -51,6 +49,11 @@ textarea {
 form div {
 	clear: both;
 	min-height: 10px;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
 }
 
 .green {
