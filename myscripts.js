@@ -99,7 +99,7 @@ $(document).ready(function() {
 		removeOldResults();
 
 		/* then split textarea input into array */
-		if ($('textarea')[0].value.length > 0 && $('textarea')[0].value.length <= 1000) {
+		if ($('textarea')[0].value.length > 0 && $('textarea')[0].value.length <= 1500) {
 			
 			/* check textarea array against dangerousChemy.arr for matches */
 			checkArray($('textarea')[0].value);
@@ -117,8 +117,7 @@ $(document).ready(function() {
 		dangerousChemy.reset();
 		removeOldResults();
 
-		var inputURL = treatURL($('input#url')[0].value);
-		console.log(inputURL);
+		var inputURL = $('input#url')[0].value;
 
 		/* validation on url input */
 		if (inputURL) {
@@ -131,9 +130,10 @@ $(document).ready(function() {
 				.done(function(json) {
 
 				    /* treat json to array */
-				    var regExp = /["][i][n][g][r][e][d][i][e][n][t][s]["][:]["](.*?)["][,]["][i][d]["][:]/;
+				    var regExp = /"ingredients":"(.*?)","id":/;
 					var matches = regExp.exec(json['text']);
-				    if(matches[1].length > 0) checkArray(matches[1]);
+					console.log(json['text']);
+				    if(matches) checkArray(matches[1]);
 				    else checkURL("doesn't have ingredient information");
 
 				})
@@ -150,11 +150,11 @@ $(document).ready(function() {
 	});
 
 	function checkLength(){
-		$('#textarea_warning')[0].innerHTML = 1000 - $('textarea')[0].value.length;
+		$('#textarea_warning')[0].innerHTML = 1500 - $('textarea')[0].value.length;
 
 		$('p:has(span)').addClass("normal").removeClass("bold");
 
-		if ($('textarea')[0].value.length > 1000) {
+		if ($('textarea')[0].value.length > 1500) {
 			$('#textarea_warning').removeClass("green").addClass("red");
 		} else {
 			$('#textarea_warning').addClass("green").removeClass("red");
@@ -163,16 +163,7 @@ $(document).ready(function() {
 
 	function treatURL(url){
 		if(url.indexOf("sephora.com") > 0) {
-			if (url.substring(0, 9) == 'https://m'){
-				url = 'http://www' + url.substring(9, url.length);
-			} else if (url.substring(0, 5) == 'https') {
-				return null;
-			} else if (url.substring(0, 10) == 'http://www') {
-				return url;
-			} else {
-				return null;
-			}
-
+			return url;
 		} else {
 			return null;
 		}

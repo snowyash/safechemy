@@ -51,7 +51,7 @@
                 <h3>Please paste or type the ingredient names below, seperating them with a comma:</h3>
                 <textarea id="chemy_names" name="chemy_names" required="required" placeholder="ie. Water, Glycerin, Butyrospermum Parkii (Shea) Butter..."></textarea>                 
                 <div>
-                    <p class="normal">You are allowed 1000 characters, you have <span id="textarea_warning">1000</span> characters left.</p>
+                    <p class="normal">You are allowed 1500 characters, you have <span id="textarea_warning">1500</span> characters left.</p>
                 </div>
                 <input class="submit" name="submit" type="submit" value="submit" />
             </form>
