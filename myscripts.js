@@ -117,7 +117,7 @@ $(document).ready(function() {
 		dangerousChemy.reset();
 		removeOldResults();
 
-		var inputURL = $('input#url')[0].value;
+		var inputURL = treatURL($('input#url')[0].value);
 
 		/* validation on url input */
 		if (inputURL) {
@@ -126,14 +126,12 @@ $(document).ready(function() {
 			$('#url_warning')[0].innerHTML = "is a valid sephora address.";
 
 			/* call ajax and get info from URL */
-			$.getJSON( "php/ingredientsGenerator.php", { url: inputURL } )
+			$.getJSON( "php/ingredientsGenerator.php", { url: inputURL[0] } )
 				.done(function(json) {
 
 				    /* treat json to array */
-				    var regExp = /"ingredients":"(.*?)","id":/;
-					var matches = regExp.exec(json['text']);
-					console.log(json['text']);
-				    if(matches) checkArray(matches[1]);
+				    var matches = json['text'].substring(json['text'].indexOf(inputURL[1]), json['text'].indexOf(inputURL[2]));
+				    if(matches) checkArray(matches);
 				    else checkURL("doesn't have ingredient information");
 
 				})
@@ -162,8 +160,13 @@ $(document).ready(function() {
 	}
 
 	function treatURL(url){
-		if(url.indexOf("sephora.com") > 0) {
-			return url;
+
+		if(url.indexOf("m.sephora.com") > 0) {
+			return [ url, 'Ingredients', 'How to use' ];
+
+		} else if (url.indexOf("www.sephora.com") > 0){
+			return [ url, ',"ingredients":"', '","id":"' ];
+
 		} else {
 			return null;
 		}
@@ -179,7 +182,7 @@ $(document).ready(function() {
 	function checkArray(str){
 
 		/* this function aligned the two arrays together and find duplicate items alphabetically */
-		dangerousChemy.both = str.toLowerCase().replace(/[ ()]|[a][n][d]/g, '').replace(/[:;.-]/g, ',').split(',').concat(dangerousChemy.arr);
+		dangerousChemy.both = str.toLowerCase().replace(/[ ()<>"]|[a][n][d]|[\\][r]|[\\][n]/g, '').replace(/[:;.-]/g, ',').split(',').concat(dangerousChemy.arr);
 		dangerousChemy.both.sort();
 
 		for(var i = 0; i < dangerousChemy.both.length-1; i++){
